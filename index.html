@@ -1,27 +1,197 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AuraSync - Real-Time Emotional Web</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AuraSync 🌟 - Real-Time Emotional Bio-Feedback & Ambience</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
-<body id="body-bg">
+<body class="mood-calm">
+  <!-- Dynamic Ambient Aura Glowing Blobs in Background -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+  <div class="ambient-glow glow-3"></div>
 
-    <div class="container">
-        <h1>AuraSync 🌟</h1>
-        <p id="status-text">የእርስዎን ስሜት በካሜራ በመቃኘት ላይ...</p>
+  <!-- App Wrapper -->
+  <div class="app-container">
+    
+    <!-- Top Header -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="logo-icon">🌟</div>
+        <div class="brand-text">
+          <h1 class="glow-title">AuraSync <span class="badge">v2.0</span></h1>
+          <p class="subtitle">Real-Time Emotional Bio-Feedback & Adaptive Ambience</p>
+        </div>
+      </div>
+
+      <!-- Top Controls (Audio Synthesizer & Mode) -->
+      <div class="header-actions">
+        <button id="audioToggleBtn" class="glass-btn audio-btn" title="Toggle Ambient Audio Synthesizer">
+          <span class="btn-icon" id="audioIcon">🔇</span>
+          <span class="btn-label" id="audioLabel">Soundscape: Off</span>
+        </button>
+        <div class="live-pill">
+          <span class="pulse-dot"></span>
+          <span id="systemStatusText">BIO-SCAN ACTIVE</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Grid Dashboard -->
+    <main class="dashboard-grid">
+      
+      <!-- Left Column: Video Feed & Biometric HUD -->
+      <section class="card video-card">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="icon">📷</span>
+            <h2>Live Bio-Scanner</h2>
+          </div>
+          <span class="fps-counter" id="fpsCounter">60 FPS</span>
+        </div>
+
+        <div class="video-wrapper" id="videoWrapper">
+          <video id="webcamVideo" autoplay playsinline muted></video>
+          <canvas id="analyzerCanvas" class="hidden-canvas"></canvas>
+
+          <!-- Futuristic HUD Overlay Elements -->
+          <div class="hud-overlay">
+            <div class="hud-corner top-left"></div>
+            <div class="hud-corner top-right"></div>
+            <div class="hud-corner bottom-left"></div>
+            <div class="hud-corner bottom-right"></div>
+            <div class="scan-line"></div>
+            
+            <!-- Facial Target Box -->
+            <div class="face-target-box">
+              <div class="target-corner t-l"></div>
+              <div class="target-corner t-r"></div>
+              <div class="target-corner b-l"></div>
+              <div class="target-corner b-r"></div>
+              <div class="target-label" id="targetLabel">ALIGNING FACIAL BIO-METRICS...</div>
+            </div>
+          </div>
+
+          <!-- Camera Placeholder / Permission Prompt -->
+          <div class="camera-fallback" id="cameraFallback">
+            <div class="fallback-icon">👁️</div>
+            <h3>Camera Access Required</h3>
+            <p>Allow webcam permissions to sync your emotional aura in real-time.</p>
+            <button id="requestCamBtn" class="glow-action-btn">Enable Camera</button>
+          </div>
+        </div>
+
+        <!-- Biometric Telemetry Bars -->
+        <div class="telemetry-panel">
+          <div class="telemetry-item">
+            <div class="telemetry-labels">
+              <span>Coherence Frequency</span>
+              <span id="coherenceValue" class="telemetry-value">432 Hz</span>
+            </div>
+            <div class="progress-track">
+              <div id="coherenceBar" class="progress-fill" style="width: 78%;"></div>
+            </div>
+          </div>
+          <div class="telemetry-item">
+            <div class="telemetry-labels">
+              <span>Aura Energy Level</span>
+              <span id="energyValue" class="telemetry-value">68%</span>
+            </div>
+            <div class="progress-track">
+              <div id="energyBar" class="progress-fill" style="width: 68%;"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Column: Emotion State & AI Recommendations -->
+      <section class="insights-column">
         
-        <div class="video-box">
-            <video id="webcam" autoplay playsinline width="400" height="300"></video>
+        <!-- Emotion Status Card -->
+        <div class="card emotion-status-card">
+          <div class="emotion-header">
+            <span class="section-tag">CURRENT DETECTED STATE</span>
+            <div class="confidence-badge">
+              <span>Confidence:</span>
+              <strong id="confidenceScore">94%</strong>
+            </div>
+          </div>
+
+          <div class="emotion-display">
+            <div class="emotion-emoji-wrapper">
+              <div class="emoji-aura-ring"></div>
+              <span class="emotion-emoji" id="emotionEmoji">🧘</span>
+            </div>
+            <div class="emotion-details">
+              <h2 class="emotion-title" id="emotionTitle">Calm & Centered</h2>
+              <p class="emotion-description" id="emotionDesc">Harmonious neural rhythm detected. Optimal baseline state.</p>
+            </div>
+          </div>
+
+          <!-- Quick Mood Selector Demo Buttons -->
+          <div class="manual-override-container">
+            <span class="override-label">Quick Emotion Simulation:</span>
+            <div class="emotion-chips">
+              <button class="chip active" data-emotion="calm">🧘 Calm</button>
+              <button class="chip" data-emotion="focused">✨ Focused</button>
+              <button class="chip" data-emotion="happy">🌈 Happy</button>
+              <button class="chip" data-emotion="energetic">⚡ Energetic</button>
+              <button class="chip" data-emotion="stressed">🔥 Stressed</button>
+            </div>
+          </div>
         </div>
 
-        <div id="ai-suggestion" class="suggestion-card">
-            <h2>የ AI ምክር እና ስሜት መግለጫ</h2>
-            <p id="tip-text">እባክዎ ካሜራው ፊት ሆነው ለጥቂት ሰከንዶች ይቆዩ...</p>
-        </div>
-    </div>
+        <!-- AI Guidance & Motivational Suggestion Card -->
+        <div class="card suggestion-card">
+          <div class="card-header">
+            <div class="card-title">
+              <span class="icon">💡</span>
+              <h2>Adaptive AI Guidance</h2>
+            </div>
+            <span class="live-dot-tag">SYNCHRONIZED</span>
+          </div>
 
-    <script src="script.js"></script>
+          <div class="quote-box" id="quoteBox">
+            <div class="quote-symbol">“</div>
+            <p class="motivational-message" id="motivationalMessage">
+              In the stillness of a calm mind, you discover clarity that moves mountains effortlessly.
+            </p>
+          </div>
+
+          <div class="actionable-tip-box" id="tipBox">
+            <div class="tip-icon" id="tipIcon">🌱</div>
+            <div class="tip-content">
+              <h4 id="tipHeading">Proactive Wellness Tip</h4>
+              <p id="tipText">Maintain this serene momentum. Take deep belly breaths and sip cool water to sustain clarity.</p>
+            </div>
+          </div>
+
+          <!-- Interactive Breathing Pacer -->
+          <div class="breathing-guide-container">
+            <div class="breathing-circle-wrapper">
+              <div class="breathing-circle" id="breathingCircle"></div>
+              <span class="breathing-instruction" id="breathingText">Inhale</span>
+            </div>
+            <div class="breathing-info">
+              <span class="guide-title">Bio-Paced Breathing Guide</span>
+              <p class="guide-sub" id="breathingPattern">4s Inhale • 4s Hold • 4s Exhale</p>
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <p>AuraSync &copy; 2026 • Powered by Real-Time Optical Flow & Web Audio Neural Ambience</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
